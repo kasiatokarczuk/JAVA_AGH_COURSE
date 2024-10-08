@@ -17,20 +17,23 @@ class Trinomial
  double a,b,c;
  double x1,x2,delta;
 
+ //konstruktor
  public Trinomial(double a, double b, double c)
  {
   this.a = a;
   this.b = b;
   this.c = c;
-  delta(a,b,c);
+  calculateDelta();
  }
 
- public void delta(double a,double b,double c)
+ //obliczanie delty
+ public void calculateDelta()
  {
   delta=b*b-4*a*c;
  }
 
- public void pierwiastki()
+ //obliczanie pierwiastkow
+ public void calculateRoots()
  {
   if (delta<0)
   {
@@ -38,18 +41,19 @@ class Trinomial
   }
   else if (delta==0)
   {
-   x1=-b/2*a;
-   System.out.println("x1="+x1);
+   x1=-b/(2*a);
+   System.out.println("x1 = x2 = "+x1);
   }
   else
   {
    x1=(-b-Math.sqrt(delta))/(2*a);
    x2=(-b+Math.sqrt(delta))/(2*a);
-   System.out.println("x1="+x1);
-   System.out.println("x2="+x2);
+   System.out.println("x1 = "+x1);
+   System.out.println("x2 = "+x2);
   }
  }
 
+ //---gettery---
  public double getDelta()
  {
   return delta;
@@ -125,7 +129,8 @@ public class Chart_1 extends Application
 
     
     ap.getChildren().add( parameters );
-    
+
+    //zmiana ukladu wspolrzednych
     l = new LineChart(new NumberAxis("X", 0.0, 1.0, 0.1), new NumberAxis("Y", 0.0, 1.0, 0.1));
 
     l.setLegendVisible(false);
@@ -158,28 +163,34 @@ public class Chart_1 extends Application
   private void display(ActionEvent e)
    {
     double a,b,c;
-    double x1,x2;
 
     a=Double.valueOf(t1.getText());
     b=Double.valueOf(t2.getText());
     c=Double.valueOf(t3.getText());
 
     Trinomial t = new Trinomial(a,b,c);
+    t.calculateRoots();
 
     System.out.println("Display pressed");
 
     System.out.println("a=" + t1.getText());
     System.out.println("b=" + t2.getText());
     System.out.println("c=" + t3.getText());
-    System.out.println("x1=" + t.getX1());
-    System.out.println("x2=" + t.getX2());
-    
+
+    System.out.println("Delta = " + t.getDelta());
+    if (t.getDelta() >= 0) {
+     System.out.println("x1 = " + t.getX1());
+     if (t.getDelta() > 0) {
+      System.out.println("x2 = " + t.getX2());
+     }
+    }
+
 
     
     series.getData().remove(0,2);
 
     series.getData().add( new XYChart.Data<>(0.2,0.5));
-    series.getData().add( new XYChart.Data<>(0.3,0.5));    
+    series.getData().add( new XYChart.Data<>(0.3,0.5));
     series.getData().add( new XYChart.Data<>(0.7,0.5));
 
     
@@ -190,5 +201,5 @@ public class Chart_1 extends Application
    {
     launch(args);
    }
- }  
+ }
   
