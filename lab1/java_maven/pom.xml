@@ -29,7 +29,7 @@
                 <artifactId>javafx-maven-plugin</artifactId>
                 <version>0.0.8</version>
                 <configuration>
-                    <mainClass>org.example.Chart_1</mainClass>
+                    <mainClass>org.example.BasicOpsTest</mainClass>
                 </configuration>
             </plugin>
         </plugins>
